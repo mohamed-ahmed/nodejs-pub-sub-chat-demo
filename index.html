@@ -11,28 +11,47 @@
   <div id="ask" class="bordered" style="display: none;">
     Name: <input type="text" id="name" /> <a href="#"><span class="join">Join!</span></a>
   </div>
-  <div id="channel" class="bordered" style="display: none;">
-    <div id="descr" class="bordered">
-      <strong>Note:</strong> your messages make a round-trip up and down the stack (including Redis)
-      before being displayed here.<br/>
-      <strong>Tip:</strong> open up another browser window
-      to see how quickly your messages are distributed.
+
+  <div id="container" style="display: none;">
+   <div id="playArea" class="bordered" style=>
+      <svg id="svg" xmlns="http://www.w3.org/2000/svg" version="1.1">
+       <circle id="circle" r="40" stroke="black" stroke-width="2" fill="red" cx="0"/>
+       <circle id="circle2" r="40" stroke="black" stroke-width="2" fill="yellow" cx="0"/>
+
+      </svg>
     </div>
-    <div id="msgs">
-      <ul>
-        <li class="message" style="display: none">
-          <span class="user"></span><span class="message"></span>
-          <span class="time"></span>
-        </li>
-        <li class="control" style="display: none">
-          <span class="user"></span>&nbsp;<span class="message"></span>
-          <span class="time"></span>
-        </li>
-      </ul>
+
+    <div id="channel" >
+
+      <div id="descr"  class="bordered">
+        <strong>Note:</strong> your messages make a round-trip up and down the stack (including Redis)
+        before being displayed here.<br/>
+        <strong>Tip:</strong> open up another browser window
+        to see how quickly your messages are distributed.
+      </div>
+
+      <div id="msgs"  class="bordered">
+        <ul>
+          <li class="message" style="display: none">
+            <span class="user"></span><span class="message"></span>
+            <span class="time"></span>
+          </li>
+          <li class="control" style="display: none">
+            <span class="user"></span>&nbsp;<span class="message"></span>
+            <span class="time"></span>
+          </li>
+        </ul>
+      </div>
+
+      <div id="input">
+        <form><input type="text" id="message" /></form>
+      </div>
     </div>
-    <div id="input">
-      <form><input type="text" id="message" /></form>
-    </div>
-  </div>
+    
+  <div>
+
+ 
+
+
 </body>
 </html>

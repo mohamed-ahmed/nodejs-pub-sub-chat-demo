@@ -3,7 +3,7 @@ var app = require('http').createServer(handler),
 	fs = require('fs'),
 	redis = require('redis');
 
-app.listen(80);
+app.listen(8080);
 
 function handler(req, res) {
 	
@@ -69,6 +69,7 @@ function SessionController (user) {
 }
 
 SessionController.prototype.subscribe = function(socket) {
+	console.log("called with SessionController.prototype.subscribe: " + socket);
 	this.sub.on('message', function(channel, message) {
 		socket.emit(channel, message);
 	});
@@ -78,6 +79,8 @@ SessionController.prototype.subscribe = function(socket) {
 		current.publish(joinMessage);
 	});
 	this.sub.subscribe('chat');
+	this.sub.subscribe('ball');
+
 };
 
 SessionController.prototype.rejoin = function(socket, message) {
@@ -92,14 +95,21 @@ SessionController.prototype.rejoin = function(socket, message) {
 		current.publish(reply);
 	});
 	this.sub.subscribe('chat');
+	this.sub.subscribe('ball');
+
 };
 
 SessionController.prototype.unsubscribe = function() {
 	this.sub.unsubscribe('chat');
+	this.sub.unsubscribe('ball');
+
 };
 
 SessionController.prototype.publish = function(message) {
+	console.log("SessionController.prototype.publish called with message: " + message)
 	this.pub.publish('chat', message);
+	//this.pub.publish('ball', message);
+
 };
 
 SessionController.prototype.destroyRedis = function() {
@@ -108,6 +118,7 @@ SessionController.prototype.destroyRedis = function() {
 };
 
 io.sockets.on('connection', function (socket) { // the actual socket callback
+	console.log("socket on connection");
 	console.log(socket.id);
 	socket.on('chat', function (data) { // receiving chat messages
 		var msg = JSON.parse(data);
@@ -125,6 +136,13 @@ io.sockets.on('connection', function (socket) { // the actual socket callback
 		// just some logging to trace the chat data
 		console.log(data);
 	});
+
+	socket.on('ball', function (data) { // receiving ball messages
+		var ball = JSON.parse(data);
+		// just some logging to trace the ball data
+		console.log(data);
+	});
+
 
 	socket.on('join', function(data) {
 		var msg = JSON.parse(data);

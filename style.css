@@ -9,13 +9,14 @@
     text-decoration: underline;
   }
   div.bordered {
-    margin: 0 auto;
-    margin-top: 100px;
-    width: 600px;
-    padding: 20px;
+    /*margin: 0 auto;*/
+    /*margin-top: 100px;*/
+    /*width: 600px;*/
+    padding: 30px;
     text-align: center;
     border: 10px solid #ddd;
-    -webkit-border-radius: 20px;
+    /*float:left;*/
+    -webkit-border-radius: 20px;g
   }
   #error {
     background-color: #BA0000;
@@ -23,6 +24,8 @@
     font-weight: bold;
   }
   #ask {
+    margin: 0 auto;
+    width:600px;
     font-size: 20pt;
   }
   #ask input {
@@ -36,23 +39,40 @@
     -webkit-border-radius: 10px;
   }
   #channel {
-    margin-top: 100px;
-    height: 480px;
-    position: relative;
+    /*margin-top: 400px;*/
+    height: 600px;
+    width: 580px;
+    float:left;
+    /*position: relative;*/
   }
-  #channel div#descr {
-    position: absolute;
-    left: -10px;
-    top: -190px;
+  #descr {
+    /*position: absolute;*/
+    /*left: -10px;
+    top: -210px;*/
     font-size: 13px;
     text-align: left;
-    line-height: 20px;
+    /*line-height: 20px;*/
+    /*padding: 5px;*/
+    width: 500px;
+  }
+
+  #playArea {
+    /*position: absolute;*/
+    /*left: -10px;
+    top: -190px;*/
+/*    line-height: 20px;*/
     padding: 5px;
     width: 630px;
+    height: 630px;
+    float:left;
   }
+
+
+
   div#msgs {
     overflow-y: scroll;
-    height: 400px;
+    height: 430px;
+    padding-bottom: 60px
   }
   div#msgs ul {
     list-style: none;
@@ -84,11 +104,25 @@
   }
   div#input {
     text-align: left;
-    margin-top: 20px;
+    margin-top: -50px;
+    margin-left: 50px;
+    padding: 40px;
   }
   div#input #message {
-    width: 600px;
+    width: 400px;
     border: 5px solid #bbb;
     -webkit-border-radius: 3px;
-    font-size: 30pt;
+    font-size: 12pt;
+    position:relative;
+    top:-50px;
+  }
+
+  div#container{
+    /*position:absolute;
+
+    margin-left:-250px;*/
+    /*margin: 0px auto 0px auto;*/
+    left:50%;
+
+    margin:0 auto;
   }

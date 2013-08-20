@@ -1,5 +1,7 @@
 $(document).ready(function(){
-
+	var xPosition;
+	var xCursor;
+	var yCursor;
 	// show join box
 	$('#ask').show();
 	$('#ask input').focus();
@@ -15,16 +17,18 @@ $(document).ready(function(){
 	$('#ask a').click(function() {
 		join($('#ask input').val());
 		$('#ask').hide();
-		$('#channel').show();
+		$('#container').show();
 		$('input#message').focus();
 	});
+
 
 	function join(name) {
 		var host = window.location.host.split(':')[0];
 		var socket = io.connect('http://' + host);
 		
 		// send join message
-		socket.emit('join', $.toJSON({ user: name }));
+		socket.emit('join', $.toJSON({ user: name, x: circle.getAttribute("cx"), y: circle.getAttribute("cy") }));
+		console.log(name + " just joined");
 		
 		var container = $('div#msgs');
 		
@@ -72,14 +76,34 @@ $(document).ready(function(){
 			container.scrollTop(container.find('ul').innerHeight());
 		});
 
-    // new message is send in the input box
-    $('#channel form').submit(function(event) {
-      event.preventDefault();
-      var input = $(this).find(':input');
-      var msg = input.val();
-      socket.emit('chat', $.toJSON({action: 'message', user: name, msg: msg}));
-      input.val('');
-    }); 
+		
+
+	    // new message is send in the input box
+	    $('#channel form').submit(function(event) {
+	      event.preventDefault();
+	      var input = $(this).find(':input');
+	      var msg = input.val();
+	      socket.emit('chat', $.toJSON({action: 'message', user: name, msg: msg}));
+	      input.val('');
+	    }); 
+
+	    
+			$('#svg').mousemove(function (event){
+				  xCursor=event.pageX;
+				  yCursor=event.pageY;
+				  //console.log("X coords: " + x + ", Y coords: " + y);
+				  //xPosition = xCursor -(document.width - $('#playArea').width() ) / 2 - 60;
+				  //xPosition = x - 508;
+				  circle.setAttribute("cx",xCursor);
+				  circle.setAttribute("cy", yCursor - circle.getAttribute("r"));
+				  //console.log("cx: " + circle.getAttribute("cx") + "x: " + x);
+				  //console.log("x: " + x);
+
+				  socket.emit('ball', $.toJSON({action: 'move', x: circle.getAttribute("cx"), y: circle.getAttribute("cy") }) );
+
+			});
 
 	}
 });
+
+
